@@ -23,14 +23,12 @@ def get_current_weather():
     temp_dict = []
     rain_dict = []
     for time_stamp in json_response['list']:
-        # dict[list['dt']] = list['main']['temp']
         time_stamp_dict.append(datetime.datetime.utcfromtimestamp(time_stamp['dt']).time().hour + 2)
         temp_dict.append(round(pytemperature.k2c(time_stamp['main']['temp']), 1))
         rain_dict.append(time_stamp['rain']['3h'] if 'rain' in time_stamp else 0)
     print(time_stamp_dict)
     print(temp_dict)
     print(rain_dict)
-    # return jsonify(['5', '6'])
     return jsonify(time_stamp_dict[:9], temp_dict[:9], rain_dict[:9])
 
 @app.route('/forecast')
